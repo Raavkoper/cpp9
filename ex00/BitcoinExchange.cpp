@@ -22,35 +22,46 @@ BitcoinExchange&	BitcoinExchange::operator=( const BitcoinExchange& other ) {
 
 void BitcoinExchange::initialize() {
 	std::ifstream file(datafile);
-
-	if (!file.is_open()) {
-		std::cerr << "Error opening file." << std::endl;
-		return ;
-	}
-
 	std::string line;
+	std::string date;
+	std::string price;
+
 	std::getline(file, line);
 	while (std::getline(file, line)) {
 		std::stringstream ss(line);
-		std::string date, price;
-
 		std::getline(ss, date, ',');
 		std::getline(ss, price, ',');
-
-		this->date.push_back(date);
-		this->price.push_back(std::stof(price));
+		data[date] = std::stof(price);
 	}
+}
 
-	file.close();
+int error_checks(std::string line, std::string amount) {
+	try {
+		if (std::stoi(amount) < 0) {
+			std::cerr << "Error: negative amount." << std::endl;
+			return 1;
+		}
+	} catch (std::exception &e) {
+		std::cerr << "Error: number out of int range." << std::endl;
+		return 1;
+	}
+	return (0);
 }
 
 void BitcoinExchange::print() {
 	std::ifstream file(inputfile);
-	std::string line;
+	std::string amount, line, datetoprint;
 
 	std::getline(file, line);
 	while (std::getline(file, line)) {
 		std::stringstream ss(line);
+		std::cout << line << std::endl;
 		std::getline(ss, line, '|');
+		line = line.substr(0, 10);
+		datetoprint = line;
+		std::getline(ss, amount, '|');
+		if (error_checks(line, amount))
+			continue;
+		std::cout << datetoprint << " =>" << amount << " = " << data[line] * std::stof(amount) << std::endl;
 	}
 }
