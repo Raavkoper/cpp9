@@ -29,13 +29,17 @@ RPN::RPN( const std::string& expression) {
 		}
 		else {
 			if (operands.size() < 2) {
-				std::cerr << "Error: too few operands" << std::endl;
+				std::cerr << "Error: invalid input" << std::endl;
 				return;
 			}
 			double operand1 = operands.top();
 			operands.pop();
 			double operand2 = operands.top();
 			operands.pop();
+			if (token.length() != 1) {
+				std::cerr << "Error: invalid input" << std::endl;
+				return;
+			}
 			if (token[0] == '+')
 				operands.push(operand2 + operand1);
 			else if (token[0] == '-')
@@ -45,9 +49,6 @@ RPN::RPN( const std::string& expression) {
 			else if (token[0] == '/')
 				operands.push(operand2 / operand1);
 		}
-		// std::cout << "token " << token[0] << std::endl;
-		// print_stack(operands);
-		// std::cout << "end of loop" << std::endl;
 	}
 	std::cout << operands.top() << std::endl;
 }
