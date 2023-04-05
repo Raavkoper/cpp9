@@ -48,6 +48,12 @@ int error_checks(std::string line, std::string amount) {
 	return (0);
 }
 
+void find_date(std::string &line, std::map<std::string, float> data) {
+	std::map<std::string, float>::iterator it = data.lower_bound(line);
+	it--;
+	line = it->first;
+}
+
 void BitcoinExchange::print() {
 	std::ifstream file(inputfile);
 	std::string amount, line, datetoprint;
@@ -55,10 +61,16 @@ void BitcoinExchange::print() {
 	std::getline(file, line);
 	while (std::getline(file, line)) {
 		std::stringstream ss(line);
-		std::cout << line << std::endl;
+		if (line.find('|') == -1) {
+			std::cerr << "Error: invalid line." << std::endl;
+			continue;
+		}
 		std::getline(ss, line, '|');
 		line = line.substr(0, 10);
 		datetoprint = line;
+		if (data.find(line) == data.end()) {
+			find_date(line, data);
+		}
 		std::getline(ss, amount, '|');
 		if (error_checks(line, amount))
 			continue;
