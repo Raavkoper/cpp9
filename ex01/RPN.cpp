@@ -15,7 +15,6 @@ void print_stack(std::stack<double> s) {
 	}
 }
 
-
 RPN::RPN( const std::string& expression) {
 	std::stringstream ss(expression);
 	std::string token;

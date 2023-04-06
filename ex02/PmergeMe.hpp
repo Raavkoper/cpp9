@@ -1,5 +1,8 @@
 #ifndef PMERGEME_H
 #define PMERGEME_H
+
+#include <vector>
+#include <algorithm>
 #include <iostream>
  
 class PmergeMe {
