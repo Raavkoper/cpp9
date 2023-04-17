@@ -2,6 +2,16 @@
 
 RPN::RPN() {}
 
+int iterate_stack(std::stack<double> s) {
+	int i = 0;
+	while (!s.empty()) {
+
+		s.pop();
+		i++;
+	}
+	return i;
+}
+
 void print_stack(std::stack<double> s) {
 	std::stack<double> temp;
 	while (!s.empty()) {
@@ -18,6 +28,7 @@ void print_stack(std::stack<double> s) {
 RPN::RPN( const std::string& expression) {
 	std::stringstream ss(expression);
 	std::string token;
+	int i = 0;
 	while (std::getline(ss, token, ' ')) {
 		if (isdigit(token[0])) {
 			if (operands.size() > 2) {
@@ -25,6 +36,7 @@ RPN::RPN( const std::string& expression) {
 				return;
 			}
 			operands.push(std::stod(token));
+			i = 1;
 		}
 		else {
 			if (operands.size() < 2) {
@@ -47,7 +59,16 @@ RPN::RPN( const std::string& expression) {
 				operands.push(operand2 * operand1);
 			else if (token[0] == '/')
 				operands.push(operand2 / operand1);
+			else {
+				std::cerr << "Error: invalid input" << std::endl;
+				return;
+			}
+			i = 0;
 		}
+	}
+	if (i) {
+		std::cerr << "Error: expression cant end with an integer" << std::endl;
+		return;
 	}
 	std::cout << operands.top() << std::endl;
 }
