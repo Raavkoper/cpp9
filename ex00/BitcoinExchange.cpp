@@ -2,7 +2,7 @@
 
 BitcoinExchange::BitcoinExchange() 
 	: inputfile("null"), datafile("data.csv") {
-	this->initialize();
+	return ;
 }
 
 BitcoinExchange::BitcoinExchange( const std::string new_inputfile ) 
