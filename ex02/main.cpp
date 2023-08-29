@@ -9,8 +9,8 @@ int main(int argc, char	**argv) {
 
 	p.fillContainers(argc, argv);
 
-	std::cout << "Unsorted sequence:" << std::endl;
-	p.printVec();
+	// std::cout << "Unsorted sequence:" << std::endl;
+	// p.printVec();
 
 	std::clock_t startVec = std::clock();
     p.mergeInsertionSortVec();
@@ -20,11 +20,11 @@ int main(int argc, char	**argv) {
     p.mergeInsertionSortDeq();
 	std::clock_t endDeq = std::clock();
     
-    std::cout << "Sorted sequence:" << std::endl;
+    // std::cout << "Sorted sequence:" << std::endl;
 	p.printVec();
 
-	std::cout << "Time taken by vector: " << (endVec - startVec) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
-	std::cout << "Time taken by deque: " << (endDeq - startDeq) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
+	// std::cout << "Time taken by vector: " << (endVec - startVec) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
+	// std::cout << "Time taken by deque: " << (endDeq - startDeq) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
         
     return 0;
 }
