@@ -5,7 +5,6 @@ RPN::RPN() {}
 int iterate_stack(std::stack<double> s) {
 	int i = 0;
 	while (!s.empty()) {
-
 		s.pop();
 		i++;
 	}
