@@ -30,7 +30,7 @@ RPN::RPN( const std::string& expression) {
 	int i = 0;
 	while (std::getline(ss, token, ' ')) {
 		if (isdigit(token[0])) {
-			if (operands.size() >= 2) {
+			if (operands.size() > 2) {
 				std::cerr << "Error: too many operands" << std::endl;
 				return;
 			}
