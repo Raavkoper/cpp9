@@ -36,7 +36,11 @@ PmergeMe::PmergeMe(int argc, char **argv): size(argc - 1) {
     errorChecking(argc, argv);
     fillContainers(argc, argv);
     min = std::min_element(vec.begin(), vec.end())[0];
+    auto start = std::chrono::high_resolution_clock::now();
     sortContainers();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "Time in miliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << std::endl;
+    std::cout << "Time in microsenconds: " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << std::endl;
 }
 
 // FILLING
