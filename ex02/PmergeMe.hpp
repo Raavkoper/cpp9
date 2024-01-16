@@ -24,14 +24,22 @@ public:
     void errorChecking(int argc, char **argv);
 
     void fillContainers(int argc, char **argv);
-    void sortContainers();
+    
+    void sortVector();
+    void sortDeque();
 
-    void determinePairs();
-    void sortLargest(std::vector<int> &sorted);
-    void insertSmallest(std::vector<int> &sorted);
-    void addSmallest(std::vector<int> &sorted);
+    void determinePairsVec();
+    void sortLargestVec(std::vector<int> &sorted);
+    void insertSmallestVec(std::vector<int> &sorted);
+    void addSmallestVec(std::vector<int> &sorted);
+    void insertBinarySearchVec(std::vector<int> &sorted, int i);
 
-    void insertBinarySearch(std::vector<int> &sorted, int i);
+    void determinePairsDeq();
+    void sortLargestDeq(std::deque<int> &sorted);
+    void insertSmallestDeq(std::deque<int> &sorted);
+    void addSmallestDeq(std::deque<int> &sorted);
+    void insertBinarySearchDeq(std::deque<int> &sorted, int i);
+
     void outputVector(std::vector<int> vec);
     void outputDeque(std::deque<int> deq);
 };

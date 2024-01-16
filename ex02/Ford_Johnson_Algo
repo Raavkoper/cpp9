@@ -14,3 +14,8 @@ Merge-insertion sort performs the following steps, on an input X X of n n elemen
 5   Insert the remaining ⌈ n / 2 ⌉ − 1 {\displaystyle \lceil n/2\rceil -1} elements of X ∖ S X\setminu
     s S into S S, one at a time, with a specially chosen insertion ordering described below. Use binary search
     in subsequences of S S (as described below) to determine the position at which each element should be inserted.
+
+
+    1 8 3 15 5 9 4 2 82 34 65 13 73 43 32 54 47
+    0 1 2 3 4 5 8 9 13 15 32 34 43 54 65 73 82
+    1 2 3 4 5 8 9 13 15 32 34 43 47 54 65 73 82

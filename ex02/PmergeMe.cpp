@@ -10,7 +10,6 @@ void PmergeMe::outputVector(std::vector<int> vec) {
 }
 
 void PmergeMe::outputDeque(std::deque<int> deq) {
-    std::cout << "Deque: ";
     for (int i = 0; i < deq.size(); i++) {
         std::cout << deq[i] << " ";
     }
@@ -36,11 +35,16 @@ PmergeMe::PmergeMe(int argc, char **argv): size(argc - 1) {
     errorChecking(argc, argv);
     fillContainers(argc, argv);
     min = std::min_element(vec.begin(), vec.end())[0];
-    auto start = std::chrono::high_resolution_clock::now();
-    sortContainers();
-    auto end = std::chrono::high_resolution_clock::now();
-    std::cout << "Time in miliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << std::endl;
-    std::cout << "Time in microsenconds: " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << std::endl;
+    auto startVec = std::chrono::high_resolution_clock::now();
+    sortVector();
+    auto endVec = std::chrono::high_resolution_clock::now();
+    std::cout << "Vector time in miliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(endVec - startVec).count() << std::endl;
+    std::cout << "Vector time in microsenconds: " << std::chrono::duration_cast<std::chrono::microseconds>(endVec - startVec).count() << std::endl;
+    auto startDeq = std::chrono::high_resolution_clock::now();
+    sortDeque();
+    auto endDeq = std::chrono::high_resolution_clock::now();
+    std::cout << "Deque time in miliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(endDeq - startDeq).count() << std::endl;
+    std::cout << "Deque time in microsenconds: " << std::chrono::duration_cast<std::chrono::microseconds>(endDeq - startDeq).count() << std::endl;
 }
 
 // FILLING
@@ -79,18 +83,34 @@ void PmergeMe::fillContainers(int argc, char **argv) {
 
 // SORTING
 
-void PmergeMe::sortContainers() {
+void PmergeMe::sortVector() {
     std::vector<int> sorted;
-    determinePairs();
-    sortLargest(sorted);
-    insertSmallest(sorted);
-    addSmallest(sorted);
+    determinePairsVec();
+    sortLargestVec(sorted);
+    insertSmallestVec(sorted);
+    addSmallestVec(sorted);
     vec = sorted;
-    std::cout << "After: " << std::endl;
+    std::cout << "Vector After: " << std::endl;
     outputVector(vec);
 }
 
-void PmergeMe::determinePairs() {
+void PmergeMe::sortDeque() {
+    std::deque<int> sorted;
+    determinePairsDeq();
+    sortLargestDeq(sorted);
+    insertSmallestDeq(sorted);
+    addSmallestDeq(sorted);
+    deq.clear();
+    for (int i = 0; i < sorted.size(); i++) {
+        deq.push_back(sorted[i]);
+    }
+    std::cout << "Deque After: " << std::endl;
+    outputDeque(deq);
+}
+
+// VECTOR
+
+void PmergeMe::determinePairsVec() {
     for (int i = 0; i < size; i += 2) {
         if (vec[i] > vec[i + 1]) {
             std::swap(vec[i], vec[i + 1]);
@@ -98,24 +118,67 @@ void PmergeMe::determinePairs() {
     }
 }
 
-void PmergeMe::sortLargest(std::vector<int> &sorted) {
+void PmergeMe::sortLargestVec(std::vector<int> &sorted) {
     for (int i = 1; i < size; i += 2) {
-        insertBinarySearch(sorted, vec[i]);
+        insertBinarySearchVec(sorted, vec[i]);
     }
 }
 
-void PmergeMe::insertSmallest(std::vector<int> &sorted) {
+void PmergeMe::insertSmallestVec(std::vector<int> &sorted) {
     sorted.insert(sorted.begin(), min);
 }
 
-void PmergeMe::addSmallest(std::vector<int> &sorted) {
+void PmergeMe::addSmallestVec(std::vector<int> &sorted) {
     for (int i = 0; i < size; i += 2) {
         if (vec[i] != min)
-            insertBinarySearch(sorted, vec[i]);
+            insertBinarySearchVec(sorted, vec[i]);
     }
 }
 
-void PmergeMe::insertBinarySearch(std::vector<int> &sorted, int i) {
+void PmergeMe::insertBinarySearchVec(std::vector<int> &sorted, int i) {
+    int low = 0;
+    int high = sorted.size() - 1;
+    int mid = 0;
+    int temp = i;
+    while (low <= high) {
+        mid = (low + high) / 2;
+        if (temp > sorted[mid]) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    sorted.insert(sorted.begin() + low, temp);
+}
+
+// DEQUE
+
+void PmergeMe::determinePairsDeq() {
+    for (int i = 0; i < size; i += 2) {
+        if (vec[i] > vec[i + 1]) {
+            std::swap(vec[i], vec[i + 1]);
+        }
+    }
+}
+
+void PmergeMe::sortLargestDeq(std::deque<int> &sorted) {
+    for (int i = 1; i < size; i += 2) {
+        insertBinarySearchDeq(sorted, deq[i]);
+    }
+}
+
+void PmergeMe::insertSmallestDeq(std::deque<int> &sorted) {
+    sorted.insert(sorted.begin(), min);
+}
+
+void PmergeMe::addSmallestDeq(std::deque<int> &sorted) {
+    for (int i = 0; i < size; i += 2) {
+        if (deq[i] != min)
+            insertBinarySearchDeq(sorted, deq[i]);
+    }
+}
+
+void PmergeMe::insertBinarySearchDeq(std::deque<int> &sorted, int i) {
     int low = 0;
     int high = sorted.size() - 1;
     int mid = 0;
