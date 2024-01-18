@@ -100,10 +100,7 @@ void PmergeMe::sortDeque() {
     sortLargestDeq(sorted);
     insertSmallestDeq(sorted);
     addSmallestDeq(sorted);
-    deq.clear();
-    for (int i = 0; i < sorted.size(); i++) {
-        deq.push_back(sorted[i]);
-    }
+    deq = sorted;
     std::cout << "Deque After: " << std::endl;
     outputDeque(deq);
 }
@@ -112,7 +109,7 @@ void PmergeMe::sortDeque() {
 
 void PmergeMe::determinePairsVec() {
     for (int i = 0; i < size; i += 2) {
-        if (vec[i] > vec[i + 1]) {
+        if (vec[i] > vec[i + 1] && i != size - 1 && size % 2 != 0) {
             std::swap(vec[i], vec[i + 1]);
         }
     }
@@ -155,8 +152,8 @@ void PmergeMe::insertBinarySearchVec(std::vector<int> &sorted, int i) {
 
 void PmergeMe::determinePairsDeq() {
     for (int i = 0; i < size; i += 2) {
-        if (vec[i] > vec[i + 1]) {
-            std::swap(vec[i], vec[i + 1]);
+        if (deq[i] > deq[i + 1]) {
+            std::swap(deq[i], deq[i + 1]);
         }
     }
 }

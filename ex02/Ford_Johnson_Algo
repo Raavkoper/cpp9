@@ -11,7 +11,7 @@ Merge-insertion sort performs the following steps, on an input X X of n n elemen
 
 4   Insert at the start of S S the element that was paired with the first and smallest element of S S.
 
-5   Insert the remaining ⌈ n / 2 ⌉ − 1 {\displaystyle \lceil n/2\rceil -1} elements of X ∖ S X\setminu
+5   Insert the remaining ⌈ n / 2 ⌉ − 1 elements of X ∖ S X\setminu
     s S into S S, one at a time, with a specially chosen insertion ordering described below. Use binary search
     in subsequences of S S (as described below) to determine the position at which each element should be inserted.
 
