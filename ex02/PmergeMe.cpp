@@ -45,6 +45,12 @@ PmergeMe::PmergeMe(int argc, char **argv): size(argc - 1) {
     auto endDeq = std::chrono::high_resolution_clock::now();
     std::cout << "Deque time in miliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(endDeq - startDeq).count() << std::endl;
     std::cout << "Deque time in microsenconds: " << std::chrono::duration_cast<std::chrono::microseconds>(endDeq - startDeq).count() << std::endl;
+
+    if (is_sorted(vec.begin(), vec.end()) && is_sorted(deq.begin(), deq.end())) {
+        std::cout << "Both containers are sorted correctly." << std::endl;
+    } else {
+        std::cout << "Both containers are not sorted." << std::endl;
+    }
 }
 
 // FILLING
