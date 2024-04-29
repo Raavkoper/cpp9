@@ -35,10 +35,23 @@ void BitcoinExchange::initialize() {
 	}
 }
 
-int error_checks(std::string line, std::string amount) {
+int isAllNumOrDash(std::string datetoprint) {
+	int len = datetoprint.length();
+	for (int i = 0; i < len; i++) {
+		if (isalpha(datetoprint[i]) && datetoprint[i] != '-')
+			return 1;
+	}
+	return 0;
+}
+
+int error_checks(std::string line, std::string amount, std::string datetoprint) {
 	try {
 		if (std::stoi(amount) < 0) {
 			std::cerr << "Error: negative amount." << std::endl;
+			return 1;
+		}
+		if (isAllNumOrDash(datetoprint)) {
+			std::cerr << "Error: invalid date." << std::endl;
 			return 1;
 		}
 	} catch (std::exception &e) {
@@ -72,7 +85,7 @@ void BitcoinExchange::print() {
 			find_date(line, data);
 		}
 		std::getline(ss, amount, '|');
-		if (error_checks(line, amount))
+		if (error_checks(line, amount, datetoprint))
 			continue;
 		std::cout << datetoprint << " =>" << amount << " = " << data[line] * std::stof(amount) << std::endl;
 	}
