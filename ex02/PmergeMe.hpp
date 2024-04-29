@@ -28,18 +28,6 @@ public:
     void sortVector();
     void sortDeque();
 
-    void determinePairsVec();
-    void sortLargestVec(std::vector<int> &sorted);
-    void insertSmallestVec(std::vector<int> &sorted);
-    void addSmallestVec(std::vector<int> &sorted);
-    void insertBinarySearchVec(std::vector<int> &sorted, int i);
-
-    void determinePairsDeq();
-    void sortLargestDeq(std::deque<int> &sorted);
-    void insertSmallestDeq(std::deque<int> &sorted);
-    void addSmallestDeq(std::deque<int> &sorted);
-    void insertBinarySearchDeq(std::deque<int> &sorted, int i);
-
     void outputVector(std::vector<int> vec);
     void outputDeque(std::deque<int> deq);
 };

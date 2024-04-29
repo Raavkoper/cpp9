@@ -34,7 +34,6 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &other) {
 PmergeMe::PmergeMe(int argc, char **argv): size(argc - 1) {
     errorChecking(argc, argv);
     fillContainers(argc, argv);
-    min = std::min_element(vec.begin(), vec.end())[0];
     auto startVec = std::chrono::high_resolution_clock::now();
     sortVector();
     auto endVec = std::chrono::high_resolution_clock::now();
@@ -90,109 +89,21 @@ void PmergeMe::fillContainers(int argc, char **argv) {
 // SORTING
 
 void PmergeMe::sortVector() {
-    std::vector<int> sorted;
-    determinePairsVec();
-    sortLargestVec(sorted);
-    insertSmallestVec(sorted);
-    addSmallestVec(sorted);
-    vec = sorted;
+
     std::cout << "Vector After: " << std::endl;
     outputVector(vec);
 }
 
 void PmergeMe::sortDeque() {
-    std::deque<int> sorted;
-    determinePairsDeq();
-    sortLargestDeq(sorted);
-    insertSmallestDeq(sorted);
-    addSmallestDeq(sorted);
-    deq = sorted;
+    
     std::cout << "Deque After: " << std::endl;
     outputDeque(deq);
 }
 
 // VECTOR
 
-void PmergeMe::determinePairsVec() {
-    for (int i = 0; i < size; i += 2) {
-        if (vec[i] > vec[i + 1] && i != size - 1 && size % 2 != 0) {
-            std::swap(vec[i], vec[i + 1]);
-        }
-    }
-}
 
-void PmergeMe::sortLargestVec(std::vector<int> &sorted) {
-    for (int i = 1; i < size; i += 2) {
-        insertBinarySearchVec(sorted, vec[i]);
-    }
-}
-
-void PmergeMe::insertSmallestVec(std::vector<int> &sorted) {
-    sorted.insert(sorted.begin(), min);
-}
-
-void PmergeMe::addSmallestVec(std::vector<int> &sorted) {
-    for (int i = 0; i < size; i += 2) {
-        if (vec[i] != min)
-            insertBinarySearchVec(sorted, vec[i]);
-    }
-}
-
-void PmergeMe::insertBinarySearchVec(std::vector<int> &sorted, int i) {
-    int low = 0;
-    int high = sorted.size() - 1;
-    int mid = 0;
-    int temp = i;
-    while (low <= high) {
-        mid = (low + high) / 2;
-        if (temp > sorted[mid]) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    sorted.insert(sorted.begin() + low, temp);
-}
 
 // DEQUE
 
-void PmergeMe::determinePairsDeq() {
-    for (int i = 0; i < size; i += 2) {
-        if (deq[i] > deq[i + 1]) {
-            std::swap(deq[i], deq[i + 1]);
-        }
-    }
-}
 
-void PmergeMe::sortLargestDeq(std::deque<int> &sorted) {
-    for (int i = 1; i < size; i += 2) {
-        insertBinarySearchDeq(sorted, deq[i]);
-    }
-}
-
-void PmergeMe::insertSmallestDeq(std::deque<int> &sorted) {
-    sorted.insert(sorted.begin(), min);
-}
-
-void PmergeMe::addSmallestDeq(std::deque<int> &sorted) {
-    for (int i = 0; i < size; i += 2) {
-        if (deq[i] != min)
-            insertBinarySearchDeq(sorted, deq[i]);
-    }
-}
-
-void PmergeMe::insertBinarySearchDeq(std::deque<int> &sorted, int i) {
-    int low = 0;
-    int high = sorted.size() - 1;
-    int mid = 0;
-    int temp = i;
-    while (low <= high) {
-        mid = (low + high) / 2;
-        if (temp > sorted[mid]) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    sorted.insert(sorted.begin() + low, temp);
-}
