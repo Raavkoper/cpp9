@@ -88,7 +88,10 @@ void PmergeMe::fillContainers(int argc, char **argv) {
 
 // SORTING
 
-std::vector<std::
+std::vector<std::pair<int, int>> PmergeMe::makePairs() {
+    
+
+}
 
 void PmergeMe::sortVector() {
     std::vector<std::pair<int, int>> pairs = PmergeMe::makePairs();
@@ -97,12 +100,6 @@ void PmergeMe::sortVector() {
 }
 
 void PmergeMe::sortDeque() {
-    std::deque<int> sorted;
-    determinePairsDeq();
-    sortLargestDeq(sorted);
-    insertSmallestDeq(sorted);
-    addSmallestDeq(sorted);
-    deq = sorted;
     std::cout << "Deque After: " << std::endl;
     outputDeque(deq);
 }
@@ -113,13 +110,6 @@ void PmergeMe::sortDeque() {
 
 // DEQUE
 
-void PmergeMe::determinePairsDeq() {
-    for (int i = 0; i < size; i += 2) {
-        if (deq[i] > deq[i + 1]) {
-            std::swap(deq[i], deq[i + 1]);
-        }
-    }
-}
 
 void PmergeMe::sortLargestDeq(std::deque<int> &sorted) {
     for (int i = 1; i < size; i += 2) {
