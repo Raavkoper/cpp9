@@ -12,7 +12,6 @@ private:
     std::vector<int> vec;
     std::deque<int> deq;
     int size;
-    int min;
 
 public:
     PmergeMe() {};
@@ -28,13 +27,13 @@ public:
     void sortVector();
     void sortDeque();
 
-    std::vector<std::pair<int, int>> makePairs();
+    void mergeInsertionSortVec(int left, int right);
+    void mergeVec(int left, int mid, int right);
+    void insertionSortVec(int left, int right);
 
-    void determinePairsDeq();
-    void sortLargestDeq(std::deque<int> &sorted);
-    void insertSmallestDeq(std::deque<int> &sorted);
-    void addSmallestDeq(std::deque<int> &sorted);
-    void insertBinarySearchDeq(std::deque<int> &sorted, int i);
+    void mergeInsertionSortDeq(int left, int right);
+    void mergeDeq(int left, int mid, int right);
+    void insertionSortDeq(int left, int right);
 
     void outputVector(std::vector<int> vec);
     void outputDeque(std::deque<int> deq);
